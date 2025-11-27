@@ -1,5 +1,5 @@
 // GEOG 466 – Term Project
-// Verdun with Papi Maurice: trenches, forts, and memory
+// Verdun with Papi Maurice: trenches, forts, memory & media
 
 // ===== Base map setup =====
 const map = L.map("map").setView([49.3, 4.3], 8);
@@ -10,6 +10,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // ===== Story locations =====
+// icon = emoji, image = path to local file in /images, credit = source text
 const places = [
   {
     name: "Fère-en-Tardenois",
@@ -85,11 +86,22 @@ const places = [
     credit:
       "Source: Chanson de Craonne, Aisne Tourisme – https://www.aisne.com/territoire/terre-memoire/1914-1918-grande-guerre/premiere-guerre-mondiale-dans-laisne/adieu-vie-chanson-craonne",
     history:
-      "The old village of Craonne was destroyed by artillery and later rebuilt nearby. The plateau above it became a symbol of the carnage of the Nivelle Offensive, and the soldiers' protest song 'La Chanson de Craonne' is linked to this place.",
+      "The old village of Craonne was destroyed during the Nivelle Offensive in 1917. The plateau above it became a symbol of the carnage and of the soldiers who began to question the war.",
     trenches:
       "The plateau was covered by tangled trench lines, shell holes, mine craters, and collapsed dugouts. The relief was completely reshaped by artillery.",
     memory:
-      "Here my grandfather often sang 'La Chanson de Craonne'. He knew so many military songs. Because he had lost his teeth after being malnourished on a mission, strangers sometimes struggled to understand him, but I understood every word. In those moments, with the song and the landscape, he wasn\u2019t just an instructor or a veteran – he was simply my grandfather."
+      "Here my grandfather often sang 'La Chanson de Craonne'. He knew so many military songs. Because he had lost his teeth after being malnourished on a mission, strangers sometimes struggled to understand him, but I understood every word. In those moments, with the song and the landscape, he wasn’t just an instructor or a veteran – he was simply my grandfather.",
+    mediaEmbed:
+      '<p><strong>Écouter la chanson :</strong></p>' +
+      '<iframe width="280" height="158" ' +
+      'src="https://www.bing.com/videos/embed/591CB73C621E123A8999591CB73C621E123A8999" ' +
+      'title="Chanson de Craonne" ' +
+      'allow="autoplay; encrypted-media; fullscreen; picture-in-picture" ' +
+      'frameborder="0" allowfullscreen>' +
+      "</iframe>" +
+      '<p><em>(Si la lecture ne fonctionne pas, cliquez ' +
+      '<a href="https://www.bing.com/videos/riverview/relatedvideo?q=chanson+de+craonne&&mid=591CB73C621E123A8999591CB73C621E123A8999" target="_blank">' +
+      "ici</a>.)</em></p>"
   },
   {
     name: "Verdun (City)",
@@ -121,7 +133,7 @@ const places = [
     trenches:
       "The fort was surrounded by zigzag trenches, barbed wire, and crater fields that are still visible in the pitted ground.",
     memory:
-      "Inside the fort\u2019s tunnels, he taught me about tactics, accidents, and survival. Outside, he showed me how trenches circled the entire fort and how artillery reshaped the surrounding hills."
+      "Inside the fort’s tunnels, he taught me about tactics, accidents, and survival. Outside, he showed me how trenches circled the entire fort and how artillery reshaped the surrounding hills."
   },
   {
     name: "Fort Vaux",
@@ -133,7 +145,7 @@ const places = [
     credit:
       "Source: Fort de Vaux, Verdun 1916 – https://verdun1916.eu/?page_id=451",
     history:
-      "Fort Vaux is known for Commandant Raynal\u2019s desperate defense in June 1916, when the garrison held out in terrible conditions before surrendering.",
+      "Fort Vaux is known for Commandant Raynal’s desperate defense in June 1916, when the garrison held out in terrible conditions before surrendering.",
     trenches:
       "Trenches connected the fort to nearby strongpoints. Its underground galleries functioned as vertical extensions of the trench system.",
     memory:
@@ -167,7 +179,7 @@ const places = [
     history:
       "The Douaumont Ossuary contains the remains of around 130,000 unknown French and German soldiers, with a vast military cemetery in front.",
     trenches:
-      "The ossuary stands in the middle of former no man\u2019s land, surrounded by ground once cut by trenches and churned by artillery.",
+      "The ossuary stands in the middle of former no man’s land, surrounded by ground once cut by trenches and churned by artillery.",
     memory:
       "This was always the quietest moment of our trips. In front of the endless lines of crosses and the bones visible through the windows, my grandfather spoke more softly. Verdun, for me, is this mix of history lesson and mourning shared with him."
   }
@@ -204,6 +216,13 @@ places.forEach((place) => {
             </div>`
           : ""
       }
+      ${
+        place.mediaEmbed
+          ? `<div class="popup-section">
+               ${place.mediaEmbed}
+             </div>`
+          : ""
+      }
     </div>
   `;
 
@@ -220,6 +239,7 @@ places.forEach((place) => {
   clusterGroup.addLayer(marker);
 });
 
+// Add cluster group to map
 map.addLayer(clusterGroup);
 
 // ===== Journey controls: previous / next with fly + popup =====
@@ -233,7 +253,7 @@ function updateStoryStatus() {
 }
 
 function focusOnPlace(index) {
-  // wrap around (so you can go next after last, previous before first)
+  // wrap around
   if (index < 0) index = places.length - 1;
   if (index >= places.length) index = 0;
   currentIndex = index;
@@ -243,12 +263,10 @@ function focusOnPlace(index) {
 
   updateStoryStatus();
 
-  // After the map finishes moving/zooming, open the popup.
   map.once("moveend", () => {
     marker.openPopup();
   });
 
-  // Zoom enough to break clusters and focus on the point.
   map.setView(latlng, 13, { animate: true });
 }
 
@@ -270,5 +288,4 @@ if (prevBtn && nextBtn) {
 const group = L.featureGroup(markers);
 map.fitBounds(group.getBounds().pad(0.2));
 updateStoryStatus();
-// Optionally open the first stop by default:
 focusOnPlace(0);
