@@ -10,14 +10,17 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // ===== Story locations =====
-// icon = emoji used for the marker
+// icon = emoji, image = path to local file in /images, credit = source text
 const places = [
   {
     name: "Fère-en-Tardenois",
     type: "Home base / Starting point",
     lat: 49.183,
     lng: 3.617,
-    icon: "🏠", // house
+    icon: "🏠",
+    image: "images/fere-en-tardenois.jpg",
+    credit:
+      "Source: Carte postale ancienne, Geneanet – https://www.geneanet.org/cartes-postales/view/5928804",
     history:
       "Small town in the Aisne department, close to 1914–1918 support lines, logistics routes, and rear positions.",
     trenches:
@@ -30,7 +33,10 @@ const places = [
     type: "War-damaged city",
     lat: 49.381,
     lng: 3.323,
-    icon: "🏺", // vase / amphora
+    icon: "🏺",
+    image: "images/soissons.jpg",
+    credit:
+      "Source: Soissons cathedral ruins, Pixabay – https://pixabay.com/photos/abandoned-cathedral-church-soissons-2572677/",
     history:
       "Soissons was bombarded repeatedly and changed hands many times during the First World War.",
     trenches:
@@ -43,7 +49,10 @@ const places = [
     type: "Front line ridge",
     lat: 49.445,
     lng: 3.667,
-    icon: "🚗", // car for the drives along the ridge
+    icon: "🚗",
+    image: "images/chemin-des-dames.jpg",
+    credit:
+      "Source: Photo du Chemin des Dames, HistoryWeb – https://historyweb.fr/la-bataille-du-chemin-des-dames/",
     history:
       "A strategic ridge held by German forces. The Nivelle Offensive in 1917 caused massive French losses.",
     trenches:
@@ -56,105 +65,146 @@ const places = [
     type: "Underground quarry",
     lat: 49.443,
     lng: 3.672,
-    icon: "🐉", // dragon
+    icon: "🐉",
+    image: "images/caverne-du-dragon.jpg",
+    credit:
+      "Source: Caverne du Dragon, Aisne Tourisme – https://www.aisne.com/territoire/terre-memoire/caverne-dragon-centre-daccueil-visiteur-chemin-dames",
     history:
       "An underground limestone quarry transformed into a multi-level battlefield used by both armies.",
     trenches:
       "Connected to surface trench systems through galleries, acting as underground barracks and firing positions.",
     memory:
-      "Inside the darkness of the cave, my grandfather described the cold, humidity, and silence soldiers endured."
+      "Inside the darkness of the cave, my grandfather described the cold, humidity, and silence that soldiers endured between attacks."
   },
   {
     name: "Craonne / Plateau de Californie",
-    type: "Destroyed village",
+    type: "Destroyed village & protest song",
     lat: 49.448,
     lng: 3.786,
-    icon: "🏚️", // ruined house
+    icon: "🏚️",
+    image: "images/craonne.jpg",
+    credit:
+      "Source: Chanson de Craonne, Aisne Tourisme – https://www.aisne.com/territoire/terre-memoire/1914-1918-grande-guerre/premiere-guerre-mondiale-dans-laisne/adieu-vie-chanson-craonne",
     history:
-      "The old village of Craonne was destroyed by artillery and later rebuilt elsewhere.",
+      "The old village of Craonne was destroyed by artillery and later rebuilt nearby. The plateau above it became a symbol of the carnage of the Nivelle Offensive, and the soldiers' protest song 'La Chanson de Craonne' is linked to this place.",
     trenches:
-      "The plateau was covered by tangled trench lines, shell holes, mine craters, and collapsed dugouts.",
+      "The plateau was covered by tangled trench lines, shell holes, mine craters, and collapsed dugouts. The relief was completely reshaped by artillery.",
     memory:
-      "He used to sing the chanson de Craonne and told me to imagine the village before 1914 — shops, schools, families — then showed how artillery erased everything."
+      "Here my grandfather often sang 'La Chanson de Craonne'. He knew so many military songs. Because he had lost his teeth after being malnourished on a mission, strangers sometimes struggled to understand him, but I understood every word. In those moments, with the song and the landscape, he wasn\u2019t just an instructor or a veteran – he was simply my grandfather."
   },
   {
     name: "Verdun (City)",
     type: "Front city / Symbol of resistance",
     lat: 49.159,
     lng: 5.384,
-    icon: "🏙️", // city
+    icon: "🏙️",
+    image: "images/verdun.jpg",
+    credit:
+      "Source: French soldier at Verdun, Reddit (Dan Carlin fan community) – https://www.reddit.com/r/dancarlin/comments/90r5na/french_soldier_shot_during_battle_verdun_1916/",
     history:
-      "Verdun was massively fortified and became the center of the longest and bloodiest battle of the war.",
+      "Verdun was massively fortified and became the center of the longest and one of the bloodiest battles of the war.",
     trenches:
-      "Concentric trench systems and communication lines surrounded Verdun, connecting to forts and wooded hills.",
+      "Concentric trench systems and communication lines surrounded Verdun, connecting forts and wooded hills all around the city.",
     memory:
-      "Whenever we arrived in Verdun, I felt like entering a history book. My grandfather connected every corner of the city to the battle."
+      "Whenever we arrived in Verdun, I felt like entering a history book. My grandfather connected every corner of the city to some story about trenches, artillery, or exhausted soldiers."
   },
   {
     name: "Fort Douaumont",
     type: "Main fortress",
     lat: 49.228,
     lng: 5.439,
-    icon: "🛡️", // shield
+    icon: "🛡️",
+    image: "images/fort-douaumont.jpg",
+    credit:
+      "Source: Fort Douaumont, WW1 Battlefields – https://pages.ww1battlefields.co.uk/verdun/douaumont.html",
     history:
-      "The largest Verdun fort, captured by Germans early in 1916 and retaken by the French later.",
+      "The largest Verdun fort, captured by the Germans early in 1916 and retaken by the French later that year.",
     trenches:
-      "Surrounded by zigzag trenches, barbed wire, and crater fields still visible today.",
+      "The fort was surrounded by zigzag trenches, barbed wire, and crater fields that are still visible in the pitted ground.",
     memory:
-      "Inside the fort’s tunnels, he taught me about tactics, mistakes, and survival. Outside, he showed me how trenches circled the entire fort."
+      "Inside the fort\u2019s tunnels, he taught me about tactics, accidents, and survival. Outside, he showed me how trenches circled the entire fort and how artillery reshaped the surrounding hills."
   },
   {
     name: "Fort Vaux",
     type: "Underground fortress",
     lat: 49.22,
     lng: 5.457,
-    icon: "🏰", // castle / fort
+    icon: "🏰",
+    image: "images/fort-vaux.jpg",
+    credit:
+      "Source: Fort de Vaux, Verdun 1916 – https://verdun1916.eu/?page_id=451",
     history:
-      "Known for Commandant Raynal’s desperate defense in June 1916.",
+      "Fort Vaux is known for Commandant Raynal\u2019s desperate defense in June 1916, when the garrison held out in terrible conditions before surrendering.",
     trenches:
-      "Trenches connected the fort to nearby strongpoints. Underground galleries acted like vertical extensions of trench warfare.",
+      "Trenches connected the fort to nearby strongpoints. Its underground galleries functioned as vertical extensions of the trench system.",
     memory:
-      "He said Fort Vaux represented courage: holding out under suffocating conditions, darkness, and isolation."
+      "For my grandfather, Fort Vaux represented endurance: holding out under suffocating conditions, darkness, and isolation. Standing there with him made those values feel concrete."
   },
   {
     name: "Fleury-devant-Douaumont",
     type: "Village destroyed in battle",
     lat: 49.214,
     lng: 5.438,
-    icon: "⚰️", // coffin, erased village
+    icon: "⚰️",
+    image: "images/fleury.jpg",
+    credit:
+      "Source: Fleury-devant-Douaumont, carte postale, Geneanet – https://www.geneanet.org/cartes-postales/view/7762412",
     history:
-      "One of the villages 'Mort pour la France'. It changed hands 16 times in the fighting.",
+      "One of the villages 'Mort pour la France'. Fleury changed hands sixteen times in the fighting and was never rebuilt in its original location.",
     trenches:
-      "The area around Fleury was a maze of trenches and shell holes. The village was obliterated by artillery.",
+      "The village lay in the middle of the Verdun battle zone, cut by trenches, communication lines, and shell holes.",
     memory:
-      "Walking through the wooden signs marking old streets, he asked me to imagine the lives that once filled the village."
+      "Walking through the wooden signs marking the old streets, he asked me to imagine the bakery, the school, the mairie. It was the first time I fully understood that trenches and artillery erase ordinary lives, not just abstract front lines."
   },
   {
     name: "Ossuaire de Douaumont",
     type: "Ossuary & cemetery",
     lat: 49.21,
     lng: 5.423,
-    icon: "✝️", // cross
+    icon: "✝️",
+    image: "images/ossuaire-douaumont.jpg",
+    credit:
+      "Source: Ossuaire de Douaumont, Visit Grand Est – https://visitgrandest.com/ossuaire-de-douaumont",
     history:
-      "Contains the remains of 130,000 unknown French and German soldiers.",
+      "The Douaumont Ossuary contains the remains of around 130,000 unknown French and German soldiers, with a vast military cemetery in front.",
     trenches:
-      "The ossuary stands in the center of former no man's land, surrounded by cratered soil and former trench networks.",
+      "The ossuary stands in the middle of former no man\u2019s land, surrounded by ground once cut by trenches and churned by artillery.",
     memory:
-      "This was the quietest place. In front of the endless crosses, my grandfather always spoke more softly."
+      "This was always the quietest moment of our trips. In front of the endless lines of crosses and the bones visible through the windows, my grandfather spoke more softly. Verdun, for me, is this mix of history lesson and mourning shared with him."
   }
 ];
 
-// ===== Add markers with custom icons =====
+// ===== Add markers with custom icons into a cluster group =====
 const markers = [];
+const clusterGroup = L.markerClusterGroup({
+  disableClusteringAtZoom: 11
+});
 
 places.forEach((place) => {
   const popup = `
     <div class="popup">
       <div class="popup-title">${place.name}</div>
       <div class="popup-subtitle">${place.type}</div>
-      <div><strong>Historical context:</strong> ${place.history}</div>
-      <div style="margin-top:4px;"><strong>Trenches:</strong> ${place.trenches}</div>
-      <div style="margin-top:4px;"><strong>Memory:</strong> ${place.memory}</div>
+      <div class="popup-section">
+        <span class="popup-section-label">Historical context:</span>
+        ${place.history}
+      </div>
+      <div class="popup-section">
+        <span class="popup-section-label">Trenches & landscape:</span>
+        ${place.trenches}
+      </div>
+      <div class="popup-section">
+        <span class="popup-section-label">Personal memory:</span>
+        ${place.memory}
+      </div>
+      ${
+        place.image
+          ? `<div class="popup-section">
+              <img class="popup-img" src="${place.image}" alt="${place.name}">
+              <div class="popup-credit">${place.credit}</div>
+            </div>`
+          : ""
+      }
     </div>
   `;
 
@@ -167,10 +217,13 @@ places.forEach((place) => {
   });
 
   const marker = L.marker([place.lat, place.lng], { icon }).bindPopup(popup);
-  marker.addTo(map);
   markers.push(marker);
+  clusterGroup.addLayer(marker);
 });
 
-// ===== Fit map to marker bounds =====
+// Add cluster group to map
+map.addLayer(clusterGroup);
+
+// Fit map to all markers
 const group = L.featureGroup(markers);
 map.fitBounds(group.getBounds().pad(0.2));
