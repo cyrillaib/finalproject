@@ -10,12 +10,14 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // ===== Story locations =====
+// icon = emoji used for the marker
 const places = [
   {
     name: "Fère-en-Tardenois",
     type: "Home base / Starting point",
     lat: 49.183,
     lng: 3.617,
+    icon: "🏠", // house
     history:
       "Small town in the Aisne department, close to 1914–1918 support lines, logistics routes, and rear positions.",
     trenches:
@@ -28,6 +30,7 @@ const places = [
     type: "War-damaged city",
     lat: 49.381,
     lng: 3.323,
+    icon: "🏺", // vase / amphora
     history:
       "Soissons was bombarded repeatedly and changed hands many times during the First World War.",
     trenches:
@@ -40,6 +43,7 @@ const places = [
     type: "Front line ridge",
     lat: 49.445,
     lng: 3.667,
+    icon: "🚗", // car for the drives along the ridge
     history:
       "A strategic ridge held by German forces. The Nivelle Offensive in 1917 caused massive French losses.",
     trenches:
@@ -52,6 +56,7 @@ const places = [
     type: "Underground quarry",
     lat: 49.443,
     lng: 3.672,
+    icon: "🐉", // dragon
     history:
       "An underground limestone quarry transformed into a multi-level battlefield used by both armies.",
     trenches:
@@ -64,6 +69,7 @@ const places = [
     type: "Destroyed village",
     lat: 49.448,
     lng: 3.786,
+    icon: "🏚️", // ruined house
     history:
       "The old village of Craonne was destroyed by artillery and later rebuilt elsewhere.",
     trenches:
@@ -76,6 +82,7 @@ const places = [
     type: "Front city / Symbol of resistance",
     lat: 49.159,
     lng: 5.384,
+    icon: "🏙️", // city
     history:
       "Verdun was massively fortified and became the center of the longest and bloodiest battle of the war.",
     trenches:
@@ -88,6 +95,7 @@ const places = [
     type: "Main fortress",
     lat: 49.228,
     lng: 5.439,
+    icon: "🛡️", // shield
     history:
       "The largest Verdun fort, captured by Germans early in 1916 and retaken by the French later.",
     trenches:
@@ -100,6 +108,7 @@ const places = [
     type: "Underground fortress",
     lat: 49.22,
     lng: 5.457,
+    icon: "🏰", // castle / fort
     history:
       "Known for Commandant Raynal’s desperate defense in June 1916.",
     trenches:
@@ -112,6 +121,7 @@ const places = [
     type: "Village destroyed in battle",
     lat: 49.214,
     lng: 5.438,
+    icon: "⚰️", // coffin, erased village
     history:
       "One of the villages 'Mort pour la France'. It changed hands 16 times in the fighting.",
     trenches:
@@ -124,16 +134,17 @@ const places = [
     type: "Ossuary & cemetery",
     lat: 49.21,
     lng: 5.423,
+    icon: "✝️", // cross
     history:
       "Contains the remains of 130,000 unknown French and German soldiers.",
     trenches:
-      "The ossuary stands in the center of former no man’s land, surrounded by cratered soil and former trench networks.",
+      "The ossuary stands in the center of former no man's land, surrounded by cratered soil and former trench networks.",
     memory:
       "This was the quietest place. In front of the endless crosses, my grandfather always spoke more softly."
   }
 ];
 
-// ===== Add markers =====
+// ===== Add markers with custom icons =====
 const markers = [];
 
 places.forEach((place) => {
@@ -147,7 +158,15 @@ places.forEach((place) => {
     </div>
   `;
 
-  const marker = L.marker([place.lat, place.lng]).bindPopup(popup);
+  const icon = L.divIcon({
+    className: "emoji-marker",
+    html: place.icon,
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -28]
+  });
+
+  const marker = L.marker([place.lat, place.lng], { icon }).bindPopup(popup);
   marker.addTo(map);
   markers.push(marker);
 });
