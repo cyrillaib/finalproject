@@ -288,4 +288,9 @@ if (prevBtn && nextBtn) {
 const group = L.featureGroup(markers);
 map.fitBounds(group.getBounds().pad(0.2));
 updateStoryStatus();
-focusOnPlace(0);
+
+// Delay the first focus so the map/layout is fully ready
+setTimeout(() => {
+  focusOnPlace(0);
+}, 800); // you can try 600–1000 ms if needed
+
