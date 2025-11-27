@@ -292,5 +292,5 @@ updateStoryStatus();
 // Delay the first focus so the map/layout is fully ready
 setTimeout(() => {
   focusOnPlace(0);
-}, 800); // you can try 600–1000 ms if needed
+}, 1000); // you can try 600–1000 ms if needed
 
