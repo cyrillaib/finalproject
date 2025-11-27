@@ -10,7 +10,6 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // ===== Story locations =====
-// icon = emoji, image = path to local file in /images, credit = source text
 const places = [
   {
     name: "Fère-en-Tardenois",
@@ -221,9 +220,55 @@ places.forEach((place) => {
   clusterGroup.addLayer(marker);
 });
 
-// Add cluster group to map
 map.addLayer(clusterGroup);
 
-// Fit map to all markers
+// ===== Journey controls: previous / next with fly + popup =====
+let currentIndex = 0;
+
+function updateStoryStatus() {
+  const statusEl = document.getElementById("story-status");
+  if (!statusEl) return;
+  const place = places[currentIndex];
+  statusEl.textContent = `${currentIndex + 1} / ${places.length} — ${place.name}`;
+}
+
+function focusOnPlace(index) {
+  // wrap around (so you can go next after last, previous before first)
+  if (index < 0) index = places.length - 1;
+  if (index >= places.length) index = 0;
+  currentIndex = index;
+
+  const marker = markers[currentIndex];
+  const latlng = marker.getLatLng();
+
+  updateStoryStatus();
+
+  // After the map finishes moving/zooming, open the popup.
+  map.once("moveend", () => {
+    marker.openPopup();
+  });
+
+  // Zoom enough to break clusters and focus on the point.
+  map.setView(latlng, 13, { animate: true });
+}
+
+// Hook up buttons
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
+
+if (prevBtn && nextBtn) {
+  prevBtn.addEventListener("click", () => {
+    focusOnPlace(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    focusOnPlace(currentIndex + 1);
+  });
+}
+
+// Initial overview then start on the first place
 const group = L.featureGroup(markers);
 map.fitBounds(group.getBounds().pad(0.2));
+updateStoryStatus();
+// Optionally open the first stop by default:
+focusOnPlace(0);
