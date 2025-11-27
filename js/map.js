@@ -75,7 +75,7 @@ const places = [
     trenches:
       "The plateau was covered by tangled trench lines, shell holes, mine craters, and collapsed dugouts.",
     memory:
-      "He told me to imagine the village before 1914 — shops, schools, families — then showed how artillery erased everything."
+      "He used to sing the chanson de Craonne and told me to imagine the village before 1914 — shops, schools, families — then showed how artillery erased everything."
   },
   {
     name: "Verdun (City)",
